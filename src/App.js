@@ -14,7 +14,7 @@ function App() {
   const [loading, setLoading] = useState(true)
   const [favorites, setFavorites] = useState([])
 
-  const fetchPokemons = async (params) => {
+  const fetchPokemons = async () => {
     try {
       setLoading(true)
       const data = await getPokemons(25, 25 * page) 
@@ -24,8 +24,7 @@ function App() {
       const results = await Promise.all(promises)
       setPokemons(results)
       setLoading(false)
-      setTotal(Math.ceil(data.count / 25))
-      console.log(pokemons);
+      setTotal(Math.ceil(data.count / 25)) 
     } catch (error) {
       
     }
@@ -54,7 +53,7 @@ function App() {
       <div>
         <Navbar/>
         <div className="App">
-          <Searchbar setPokemons={setPokemons} />
+          <Searchbar setPokemons={setPokemons} fetchPokemons={fetchPokemons} />
             <Pokedex 
                 loading={loading}
                 pokemons={pokemons}

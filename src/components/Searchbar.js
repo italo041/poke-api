@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { searchPokemon } from '../helpers/api';
 
-export const Searchbar = ({setPokemons}) => {
+export const Searchbar = ({setPokemons, fetchPokemons}) => {
 
     const [search, setSearch] = useState("") 
   
@@ -10,8 +10,11 @@ export const Searchbar = ({setPokemons}) => {
     }
     
     const onClick = async (e) => {
-        const data = await searchPokemon(search);
-        setPokemons(prevState => [data] );
+        if(search.length !== 0) {
+            const data = await searchPokemon(search);
+            return setPokemons(prevState => [data] );
+        }
+        await fetchPokemons();
     }
     
 
